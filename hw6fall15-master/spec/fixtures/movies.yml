@@ -1,0 +1,9 @@
+funny_movie:
+  id: 1
+  title: Wedding Crashers
+  release_date: 2010-09-07
+sad_movie:
+  id: 2
+  title: The Notebook
+  rating: PG
+  release_date: 2009-6‐17
