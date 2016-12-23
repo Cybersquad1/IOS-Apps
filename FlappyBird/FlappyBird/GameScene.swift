@@ -19,6 +19,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score  = 0
     
+    var key = ""
+    
+    
+    var scoreValue = [Int]()
+    
+    var highlabel = SKLabelNode()
+    
+    var label1 = SKLabelNode()
+    var label2 = SKLabelNode()
+    var label3 = SKLabelNode()
+    var label4 = SKLabelNode()
+    var label5 = SKLabelNode()
+    
+    
+    
     var gameOverLabel = SKLabelNode()
     
     var timer = Timer()
@@ -129,11 +144,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 score += 1
                 
-                scoreLabel.text = String (score)
+                
+                print ("Current score is \(score)")
+                
+                scoreLabel.text = String ("Current Score : \(score)")
+                
+                
+                
+                
             }
                 
             else {
                 print("We have contact")
+                
+                for i in 0...4  {
+                    key = "highscore" + String(i)
+                    UserDefaults.standard.set(score, forKey:key)
+                    
+                }
+                
                 
                 self.speed = 0
                 
@@ -142,14 +171,253 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 timer.invalidate()
                 
                 gameOverLabel.fontName = "Helvativca"
-                gameOverLabel.fontSize = 30
+                gameOverLabel.fontSize = 40
                 gameOverLabel.text = "Game Over !!!   Tap to play Again"
                 gameOverLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                 self.addChild(gameOverLabel)
                 
+                
+                label1.fontName = "Helvativca"
+                label1.fontSize = 35
+                label1.text = "0"
+                label1.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2 - 150)
+                
+                label2.fontName = "Helvativca"
+                label2.fontSize = 35
+                label2.text = "0"
+                label2.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2 - 170)
+                
+                label3.fontName = "Helvativca"
+                label3.fontSize = 35
+                label3.text = "0"
+                label3.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2 - 190)
+                
+                label4.fontName = "Helvativca"
+                label4.fontSize = 35
+                label4.text = "0"
+                label4.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2 - 210)
+                
+                label5.fontName = "Helvativca"
+                label5.fontSize = 35
+                label5.text = "0"
+                label5.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2 - 230)
+                
+                
+                highlabel.fontName = "Helvativca"
+                highlabel.fontSize = 35
+                highlabel.text = "Game Over !!!   Tap to play Again"
+                highlabel.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2 - 120)
+                highlabel.text = "Highest Scores are :"
+                
+                for i in 0...4  {
+                    key = "highscore" + String(i)
+                    scoreValue.append(UserDefaults.standard.object(forKey:key) as! Int)
+                }
+                
+                
+                // print(uniqueVals)
+                var uniqueVals = uniq(source: scoreValue)
+                print("\(scoreValue)")
+                
+                print ("Unique array")
+                print("\(uniqueVals)")
+                
+                
+                
+                
+                uniqueVals = uniqueVals.sorted()
+                uniqueVals = uniqueVals.reversed()
+                print ("sorted array in reverse order")
+                print("\(uniqueVals)")
+                print("\(uniqueVals.count)")
+                
+                let count = uniqueVals.count
+                
+                if( count == 1)
+                {
+                    
+                    print ("count is 1")
+                    if("\(uniqueVals[0])" == "0")
+                    {
+                        label1.text = "No high scores yet"
+                    }
+                    
+                    print("first value \(uniqueVals[0])")
+                    label1.text = String ("1st Score : \(uniqueVals[0])")
+                    label2.isHidden = true
+                    label3.isHidden = true
+                    label4.isHidden = true
+                    label5.isHidden = true
+                    
+                    
+                }
+                
+                
+                if( count == 2)
+                {
+                    label2.isHidden = false
+                    
+                    if("\(uniqueVals[1])" == "0")
+                    {
+                        label2.isHidden = true
+                    }
+                    
+                    label1.text = String ("1st Score : \(uniqueVals[0])")
+                    label2.text = String ("2nd Score : \(uniqueVals[1])")
+                    label1.isHidden = false
+                    
+                    label3.isHidden = true
+                    label4.isHidden = true
+                    label5.isHidden = true
+                    print("first value \(uniqueVals[0])")
+                    print("2nd value \(uniqueVals[1])")
+                    
+                
+                    
+                }
+                
+                
+                if( count == 3)
+                {
+                    
+                    
+                    
+                    label1.isHidden = false
+                    label2.isHidden = false
+                    label3.isHidden = false
+                    
+                    if("\(uniqueVals[2])" == "0")
+                    {
+                        label3.isHidden = true
+                    }
+                    
+                    
+                    label1.text = String ("1st Score : \(uniqueVals[0])")
+                    label2.text = String ("2nd Score : \(uniqueVals[1])")
+                    label3.text = String ("3rd Score : \(uniqueVals[2])")
+                    
+                    
+                    label4.isHidden = true
+                    label5.isHidden = true
+                    
+                    print("first value \(uniqueVals[0])")
+                    print("2nd value \(uniqueVals[1])")
+                    print("3rd value\(uniqueVals[2])")
+                    
+                    
+                }
+                
+                
+                if( count == 4)
+                {
+                    
+                    label1.isHidden = false
+                    label2.isHidden = false
+                    label3.isHidden = false
+                    label4.isHidden = false
+                    
+                    if("\(uniqueVals[3])" == "0")
+                    {
+                        label4.isHidden = true
+                    }
+                    
+                    label1.text = String ("1st Score : \(uniqueVals[0])")
+                    label2.text = String ("2nd Score : \(uniqueVals[1])")
+                    label3.text = String ("3rd Score : \(uniqueVals[2])")
+                    label4.text = String ("4th Score : \(uniqueVals[3])")
+                
+                    label5.isHidden = true
+                    
+                    print("first value \(uniqueVals[0])")
+                    print("2nd value \(uniqueVals[1])")
+                    print("3rd value \(uniqueVals[2])")
+                    print("4th value\(uniqueVals[3])")
+                    
+                    
+                }
+                
+                
+                if( count == 5)
+                {
+                    label1.isHidden = false
+                    label2.isHidden = false
+                    label3.isHidden = false
+                    label4.isHidden = false
+                    label5.isHidden = false
+                    
+                    if("\(uniqueVals[4])" == "0")
+                    {
+                        print("5th value in array \(uniqueVals[4])")
+                        label5.isHidden = true
+                    }
+                    
+                    
+                    
+                    label1.text = String ("1st Score : \(uniqueVals[0])")
+                    label2.text = String ("2nd Score : \(uniqueVals[1])")
+                    label3.text = String ("3rd Score : \(uniqueVals[2])")
+                    label4.text = String ("4th Score : \(uniqueVals[3])")
+                    label5.text = String ("5th Score : \(uniqueVals[4])")
+                    
+                    print("first value \(uniqueVals[0])")
+                    print("2nd value \(uniqueVals[1])")
+                    print("3rd value\(uniqueVals[2])")
+                    print("4th value\(uniqueVals[3])")
+                    print("5th value\(uniqueVals[4])")
+                }
+                
+                
+                if( count > 5)
+                {
+                    label1.isHidden = false
+                    label2.isHidden = false
+                    label3.isHidden = false
+                    label4.isHidden = false
+                    label5.isHidden = false
+                    
+                    
+                    print("count greater than 5")
+                    label1.text = String ("1st Score : \(uniqueVals[0])")
+                    label2.text = String ("2nd Score : \(uniqueVals[1])")
+                    label3.text = String ("3rd Score : \(uniqueVals[2])")
+                    label4.text = String ("4th Score : \(uniqueVals[3])")
+                    label5.text = String ("5th Score : \(uniqueVals[4])")
+                    
+                    print("1st value \(uniqueVals[0])")
+                    print("2nd value \(uniqueVals[1])")
+                    print("3rd value\(uniqueVals[2])")
+                    print("4th value\(uniqueVals[3])")
+                    print("5th value\(uniqueVals[4])")
+                    
+                }
+                
+                
+                
+                
+                self.addChild(highlabel)
+                self.addChild(label1)
+                self.addChild(label2)
+                self.addChild(label3)
+                self.addChild(label4)
+                self.addChild(label5)
+                
+                
             }
         }
         
+    }
+    
+    
+    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
     }
     
     
@@ -162,6 +430,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupGame()
         
     }
+    
+    
+    
     
     
     func setupGame()
